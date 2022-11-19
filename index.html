@@ -16,6 +16,10 @@
                 --color: #eee;
                 --primary:#3F51B5;
             }
+            ::selection {
+                background: var(--color);
+                color: var(--bg);
+            }
             input {
                 margin-bottom: 15px;
                 display: block;
@@ -28,6 +32,8 @@
                 flex-direction: row;
                 height: 100vh;
                 margin: 0;
+                overflow-y: hidden;
+                overflow-x: hidden;
             }
             #all {
                 min-width: 70vw;
@@ -35,6 +41,7 @@
                 padding: 30px;
                 border-radius: 5px;
                 text-align: center;
+                margin-top: -5vh;
             }
             input {
                 background: var(--bg);
@@ -46,6 +53,10 @@
                 margin-right: auto;
                 margin-left: auto;
                 outline: none;
+                transition: .2s;
+            }
+            input:active, input:hover {
+                opacity: 85%;
             }
             #sex *, #sex{
                 background-color: var(--bg);
@@ -61,6 +72,9 @@
                 display: inline;
                 margin-left: 10px;
                 outline: none;
+            }
+            #sex:hover, #date:hover {
+                cursor: pointer;
             }
             #submit {
                 min-width: 100%;
@@ -351,7 +365,7 @@
                     position: 'bottom',
                     text: 'Error:  ' + err,
                     animation: true,
-                    background: '#ff0000'
+                    background: '#cc2121'
                 })
             }
             }
@@ -360,7 +374,7 @@
                 var copy = document.getElementById("output").innerText;
                 navigator.clipboard.writeText(copy);
                 new Toast({
-                    position: 'bottom',
+                    position: 'top',
                     text: 'Text copied: ' + copy,
                     animation: true
                 })
@@ -395,11 +409,16 @@
                     }
                     if(properties.animation && properties.position == 'top'){
                         toast_div.classList.add('toast_anim_t');
+                        toast_div.style.animationDuration = properties.duration;
                         //setTimeout(this.remove_toast, 3000);
                     }
                     if(properties.animation && properties.position == 'bottom'){
                         toast_div.classList.add('toast_anim_b');
+                        toast_div.style.animationDuration = properties.duration;
                         //setTimeout(this.remove_toast, 3000);
+                    }
+                    if(properties.duration != not){
+                        toast_div.style.animationDuration = properties.duration;
                     }
                     document.body.appendChild(toast_div);
                 }
