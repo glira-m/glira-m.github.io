@@ -1,1 +1,409 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Algorithm</title>
+        <style>
+            * {
+                font-family: "Poppins", sans-serif;
+                color: var(--color);
+            }
+            :root {
+                --bg:hsl(210,24%,7%);
+                --bg2:rgb(24, 31, 39);
+                --color: #eee;
+                --primary:#3F51B5;
+            }
+            input {
+                margin-bottom: 15px;
+                display: block;
+            }
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: var(--bg);
+                flex-direction: row;
+                height: 100vh;
+                margin: 0;
+            }
+            #all {
+                min-width: 70vw;
+                background-color: var(--bg2);
+                padding: 30px;
+                border-radius: 5px;
+                text-align: center;
+            }
+            input {
+                background: var(--bg);
+                padding: 7px 15px;
+                border: none;
+                margin-top: 5px;
+                border-radius: 5px;
+                display: block;
+                margin-right: auto;
+                margin-left: auto;
+                outline: none;
+            }
+            #sex *, #sex{
+                background-color: var(--bg);
+                color: var(--color);
+                border: none;
+                padding: 7px 15px;
+                margin-top: 5px;
+                border-radius: 5px;
+                margin-bottom: -25px;
+                display: block;
+                margin-right: auto;
+                margin-left: auto;
+                display: inline;
+                margin-left: 10px;
+                outline: none;
+            }
+            #submit {
+                min-width: 100%;
+                background:var(--primary);
+                padding-top: 15px;
+                padding-bottom: 15px;
+            }
 
+            .inline {
+                display: inline;
+                margin-left: 10px;
+            }
+
+            #output {
+                background: var(--bg);
+                padding: 7px 15px;
+                border: none;
+                border-radius: 5px;
+                margin-top: 10px;
+                display: none;
+            }
+            #output:hover, #submit:hover{
+                cursor: pointer;
+                opacity: 70%;
+                z-index: 1;
+            }
+            #loader{
+                width: 100vw;
+                height: 100vh;
+                background-color: var(--primary);
+                position: fixed;
+                top: -100vh;
+                transition: .2s;
+                z-index: 2;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+            /*TOAST*/
+            .toast {
+                display: block;
+                border-radius: 5px;
+                background-color: var(--primary);
+                color: var(--color);
+                position: fixed;
+                font-size: small;
+                padding: 5px 10px;
+                transition: .2s;
+            }
+            .bottom {
+                bottom: -55px;
+            }
+            .top {
+                top: -55px;
+            }
+            .toast_anim_t {
+                animation: toast_t 3s ease-in-out 1;
+            }
+            @keyframes toast_t {
+                0%{
+                    top: -50px;
+                }
+                5%{
+                    top: 15px;
+                }
+                95%{
+                    top: 15px;
+                }
+                100%{
+                    top: -50px;
+                }
+            }
+            .toast_anim_b {
+                animation: toast_b 3s ease-in-out 1;
+            }
+            @keyframes toast_b {
+                0%{
+                    bottom: -10px;
+                }
+                5%{
+                    bottom: 15px;
+                }
+                95%{
+                    bottom: 15px;
+                }
+                100%{
+                    bottom: -10px;
+                }
+            }
+            /*ANIMATION*/
+            .load{
+                animation: load 2s ease-in-out 1;
+            }
+            @keyframes load{
+                0%{
+                    top: -100vh;
+                }
+                50%{
+                    top: 0;
+                }
+                100%{
+                    top: 100vh;
+                }
+            }
+            /*PC*/
+            @media only screen and (min-width: 600px) {
+                #all {
+                    min-width: 30vw;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="loader">
+            <p>Algorithm is running ...</p>
+        </div>
+    <div id="all">
+    <form>
+        <label>Enter your surname:</label>
+        <input class="inline" type="text" placeholder="Glira" id="surname"><br>
+        <label>Enter your name:</label>
+        <input class="inline" type="text" placeholder="Matteo" id="name"><br>
+        <label>Enter your date of birth:</label>
+        <input class="inline" type="date" id="date"><br>
+        <label>Specify your sex:</label>
+        <select id="sex" class="inline">
+            <option value="male">male</option>
+            <option value="female">female</option>
+        </select>
+        <br><br>
+        <input type="button" value="Submit" onClick="get()" id="submit">
+        <span id="output" onclick="copy()"></span>
+    </form>
+    </div>
+
+        <script>
+            function get(){
+                const vocali = ['a', 'e', 'i', 'o', 'u'];
+                try{
+                /*
+                NAME
+                */
+                var name = document.getElementById('name').value.toLowerCase();
+                name = name.split("");
+                console.log(name);
+                var fil_name = [];
+                var name_vocali = [];
+                for(var i = 0; i < name.length; i++){
+                    if(!vocali.includes(name[i])){
+                        if(fil_name.length == 3){
+                            console.log('Done!');
+                        }
+                        else{
+                            let temp_var = name[i];
+                            fil_name.push(temp_var);
+                        }
+                    }
+                    else {
+                        let temp_var = name[i];
+                        name_vocali.push(temp_var);
+                    }
+                }
+                if(fil_name.length < 3){
+                    let x = 0;
+                    while(fil_name.length < 3){
+                        let temp = name_vocali[x];
+                        fil_name.push(temp);
+                        x += 1;
+                }}
+                while(fil_name.includes(undefined)){
+                    let index = fil_name.indexOf(undefined);
+                    fil_name.splice(index, 1, 'x');
+                }
+                fil_name = fil_name.join('');
+                fil_name = fil_name.toUpperCase();
+                console.log(fil_name);
+
+                /*
+                SURNAME
+                */
+                var surname = document.getElementById('surname').value.toLowerCase();
+                surname = surname.split("");
+                console.log(surname);
+                var fil_surname = [];
+                var surname_vocali = [];
+                for(var i = 0; i < surname.length; i++){
+                    if(!vocali.includes(surname[i])){
+                        if(fil_surname.length == 3){
+                            console.log('Done!');
+                        }
+                        else{
+                            let temp_var = surname[i];
+                            fil_surname.push(temp_var);
+                        }
+                    }
+                    else {
+                        let temp_var = surname[i];
+                        surname_vocali.push(temp_var);
+                    }
+                }
+                if(fil_surname.length < 3){
+                    let x = 0;
+                    while(fil_surname.length < 3){
+                        let temp = surname_vocali[x];
+                        fil_surname.push(temp);
+                        x += 1;
+                }}
+                while(fil_surname.includes(undefined)){
+                    let index = fil_surname.indexOf(undefined);
+                    fil_surname.splice(index, 1, 'x');
+                }
+                fil_surname = fil_surname.join('');
+                fil_surname = fil_surname.toUpperCase();
+                console.log(fil_surname);
+
+                /*
+                DATE
+                */
+                var date = document.getElementById('date').value;
+                date = date.split('');
+                var year = date[2];
+                year = year.concat(date[3]);
+                var month = date[5];
+                month = month.concat(date[6]);
+                var day = date[8];
+                day = day.concat(date[9]);
+
+                /*
+                MONTH
+                */
+               switch(month){
+                case('01'):
+                month = 'A';
+                    break;
+                case('02'):
+                month = 'B';
+                    break;
+                case('03'):
+                month = 'C';
+                    break;
+                case('04'):
+                month = 'D';
+                    break;
+                case('05'):
+                month = 'E';
+                    break;
+                case('06'):
+                month = 'H';
+                    break;
+                case('07'):
+                month = 'L';
+                    break;
+                case('08'):
+                month = 'M';
+                    break;
+                case('09'):
+                month = 'P';
+                    break;
+                case('10'):
+                month = 'R';
+                    break;
+                case('11'):
+                month = 'S';
+                    break;
+                case('12'):
+                month = 'T';
+                    break;
+               }
+
+               /*
+               DAY
+               */
+              var sex = document.getElementById('sex').value;
+              day = parseInt(day);
+              if(sex == 'male'){
+                //
+              }
+              else{
+                day += 40;
+              }
+              load();
+            document.getElementById("output").innerHTML = fil_surname + fil_name + year + month + day + '---';
+            document.getElementById("output").style.display = "block";
+        }
+            catch(err){
+                new Toast({
+                    position: 'bottom',
+                    text: 'Error:  ' + err,
+                    animation: true,
+                    background: '#ff0000'
+                })
+            }
+            }
+
+            function copy(){
+                var copy = document.getElementById("output").innerText;
+                navigator.clipboard.writeText(copy);
+                new Toast({
+                    position: 'bottom',
+                    text: 'Text copied: ' + copy,
+                    animation: true
+                })
+            }
+
+            function load(){
+                var loader = document.getElementById("loader");
+                loader.classList.add('load');
+                setTimeout(remove, 2000);
+            }
+
+            function remove(){
+                loader.classList.remove('load');
+            }
+
+
+            /**/
+
+            class Toast {
+                constructor(properties){
+                    const not = undefined && null && "" && NaN
+                    var toast_div = document.createElement("div");
+                    toast_div.className = 'toast';
+                    if(properties.position != not){
+                    toast_div.classList.add(properties.position);
+                    }
+                    if(properties.text != not){
+                        toast_div.innerHTML = properties.text;
+                    }
+                    if(properties.background != not){
+                        toast_div.style.background = properties.background;
+                    }
+                    if(properties.animation && properties.position == 'top'){
+                        toast_div.classList.add('toast_anim_t');
+                        //setTimeout(this.remove_toast, 3000);
+                    }
+                    if(properties.animation && properties.position == 'bottom'){
+                        toast_div.classList.add('toast_anim_b');
+                        //setTimeout(this.remove_toast, 3000);
+                    }
+                    document.body.appendChild(toast_div);
+                }
+            }
+        </script>
+    </body>
+</html>
