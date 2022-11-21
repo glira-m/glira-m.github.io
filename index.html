@@ -36,7 +36,7 @@
                 overflow-x: hidden;
             }
             #all {
-                min-width: 70vw;
+                min-width: 80vw;
                 background-color: var(--bg2);
                 padding: 30px;
                 border-radius: 5px;
@@ -114,6 +114,9 @@
                 align-items: center;
                 flex-direction: column;
             }
+            label, input {
+                    display: block;
+                }
             /*TOAST*/
             .toast {
                 display: block;
@@ -184,6 +187,9 @@
             @media only screen and (min-width: 600px) {
                 #all {
                     min-width: 30vw;
+                }
+                label, input {
+                    display: inline;
                 }
             }
         </style>
@@ -425,4 +431,4 @@
             }
         </script>
     </body>
-</html>
+</html> 
